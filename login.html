@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            color: #333;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="login">
+            <div class="form-group">
+                <label for="loginUsername">Username or Phone Number:</label>
+                <input type="text" class="form-control" placeholder="Username or Phone Number" id="loginUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password:</label>
+                <input type="password" class="form-control" placeholder="Password" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('login');
+
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let username = loginForm.querySelector('input[placeholder="Username or Phone Number"]').value;
+                let password = loginForm.querySelector('input[placeholder="Password"]').value;
+
+                fetch("http://localhost:3000/users")
+                    .then(response => response.json())
+                    .then(users => {
+                        const user = users.find(user => user.email === username && user.password === password);
+                        if (user) {
+                           
+                            window.location.href = 'index.html'; // Redirect to index page
+                        } else {
+                            alert('Invalid credentials!');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>

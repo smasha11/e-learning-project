@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            color: #333;
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form id="register">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label>
+                <input type="text" class="form-control" placeholder="Full Name" id="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="email" class="form-control" placeholder="Email Address" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="createPassword">Create Password:</label>
+                <input type="password" class="form-control" placeholder="Create Password" id="createPassword" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" class="form-control" placeholder="Confirm Password" id="confirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-custom btn-block">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registerForm = document.getElementById('register');
+
+            registerForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let fullName = registerForm.querySelector('input[placeholder="Full Name"]').value;
+                let email = registerForm.querySelector('input[placeholder="Email Address"]').value;
+                let password = registerForm.querySelector('input[placeholder="Create Password"]').value;
+                let confirmPassword = registerForm.querySelector('input[placeholder="Confirm Password"]').value;
+
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+
+                const userObject = {
+                    fullName: fullName,
+                    email: email,
+                    password: password
+                };
+
+                fetch("http://localhost:3000/users", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(userObject)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    
+                    registerForm.reset();
+                    window.location.href = 'login.html'; // Redirect to login page
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
+</body>
+</html>

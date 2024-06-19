@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": "9df3",
+      "fullName": "farhan",
+      "email": "ismail.hussein.1120@gmail.com",
+      "password": "12345"
+    },
+    {
+      "id": "40ef",
+      "fullName": "ismail",
+      "email": "ismail.hussein.1120@gmail.com",
+      "password": "1234"
+    },
+    {
+      "id": "b92b",
+      "fullName": "ali",
+      "email": "ismail.hussein.1120@gmail.com",
+      "password": "2345"
+    }
+  ]
+}
